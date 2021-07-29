@@ -17,17 +17,17 @@ public class MoneyTest {
     public void deveTestarIgualdade() {
         assertTrue(Money.dollar(5).equals(Money.dollar(5)));
         assertFalse(Money.dollar(5).equals(Money.dollar(6)));
-        assertTrue(new Franc(5).equals(new Franc(5)));
-        assertFalse(new Franc(5).equals(new Franc(6)));
-        assertFalse(new Franc(5).equals(Money.dollar(5)));
+        assertTrue(Money.franc(5).equals(Money.franc(5)));
+        assertFalse(Money.franc(5).equals(Money.franc(6)));
+        assertFalse(Money.franc(5).equals(Money.dollar(5)));
 
     }
 
     @Test
     public void deveTestarMultiplicacaoDeFranco() {
-        Franc five = new Franc(5);
-        Assertions.assertThat(new Franc(10)).isEqualTo(five.times(2));
-        Assertions.assertThat(new Franc(15)).isEqualTo(five.times(3));
+        Money five = Money.franc(5);
+        Assertions.assertThat(Money.franc(10)).isEqualTo(five.times(2));
+        Assertions.assertThat(Money.franc(15)).isEqualTo(five.times(3));
 
     }
 
@@ -35,5 +35,10 @@ public class MoneyTest {
     public void testCurrency() {
         Assertions.assertThat("USD").isEqualTo(Money.dollar(1).currency());
         Assertions.assertThat("CHF").isEqualTo(Money.franc(1).currency());
+    }
+
+    @Test
+    public void testaIgualdadeEmClassesDiferentes(){
+        assertTrue((new Money(10, "CHF")).equals(new Franc(10,"CHF")));
     }
 }
