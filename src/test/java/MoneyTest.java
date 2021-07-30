@@ -17,18 +17,7 @@ public class MoneyTest {
     public void deveTestarIgualdade() {
         assertTrue(Money.dollar(5).equals(Money.dollar(5)));
         assertFalse(Money.dollar(5).equals(Money.dollar(6)));
-        assertTrue(Money.franc(5).equals(Money.franc(5)));
-        assertFalse(Money.franc(5).equals(Money.franc(6)));
         assertFalse(Money.franc(5).equals(Money.dollar(5)));
-
-    }
-
-    @Test
-    public void deveTestarMultiplicacaoDeFranco() {
-        Money five = Money.franc(5);
-        Assertions.assertThat(Money.franc(10)).isEqualTo(five.times(2));
-        Assertions.assertThat(Money.franc(15)).isEqualTo(five.times(3));
-
     }
 
     @Test
@@ -38,7 +27,11 @@ public class MoneyTest {
     }
 
     @Test
-    public void testaIgualdadeEmClassesDiferentes(){
-        assertTrue((new Money(10, "CHF")).equals(new Franc(10,"CHF")));
+    public void testAdicaoSimples(){
+        Money five = Money.dollar(5);
+        Expression sum = five.plus(five);
+        Bank bank = new Bank();
+        Money reduced = bank.reduce(sum, "USD");
+        Assertions.assertThat(reduced).isEqualTo(Money.dollar(10));
     }
 }
